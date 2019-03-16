@@ -16,6 +16,30 @@ const server = express();
 server.use(express.json());
 server.use(helmet());
 
+// GET ALL ZOOS
+server.get('/api/zoos', async (req, res) => {
+
+});
+
+// GET ZOO BY ID
+server.get('/api/zoos/:id', async (req, res) => {
+
+});
+
+// POST NEW ZOO
+server.post('/api/zoos', async (req, res) => {
+
+});
+
+// UPDATE ZOO
+server.put('/api/zoos/:id', async (req, res) => {
+
+});
+
+// DELETE ZOO
+server.delete('/api/zoos/:id', async (req, res) => {
+
+});
 
 
 const port = 3300;
