@@ -18,12 +18,24 @@ server.use(helmet());
 
 // GET ALL ZOOS
 server.get('/api/zoos', async (req, res) => {
-
+  try {
+    const zoos = await db('zoos');
+    res.status(200).json(zoos);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // GET ZOO BY ID
 server.get('/api/zoos/:id', async (req, res) => {
-
+  try {
+    const zoo = await db('zoos')
+      .where({ id: req.params.id })
+      .first('name');
+    res.status(200).json(zoo);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // POST NEW ZOO
