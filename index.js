@@ -53,7 +53,22 @@ server.post('/api/zoos', async (req, res) => {
 
 // UPDATE ZOO
 server.put('/api/zoos/:id', async (req, res) => {
-  
+  try {
+    const newZoo = await db('zoos')
+      .where({ id: req.params.id })
+      .update(req.body);
+
+    if (newZoo) {
+      const zoo = await db('zoos')
+        .where({ id: req.params.id })
+        .first();
+      res.status(200).json(zoo);
+    } else {
+      res.status(404).json({message: 'Zoo does not exist'});
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // DELETE ZOO
