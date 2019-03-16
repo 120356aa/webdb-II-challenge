@@ -40,12 +40,20 @@ server.get('/api/zoos/:id', async (req, res) => {
 
 // POST NEW ZOO
 server.post('/api/zoos', async (req, res) => {
-
+  try {
+    const [id] = await db('zoos').insert(req.body);
+    const zoo = await db('zoos')
+      .where({ id })
+      .first();
+    res.status(201).json(zoo);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // UPDATE ZOO
 server.put('/api/zoos/:id', async (req, res) => {
-
+  
 });
 
 // DELETE ZOO
