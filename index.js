@@ -73,7 +73,19 @@ server.put('/api/zoos/:id', async (req, res) => {
 
 // DELETE ZOO
 server.delete('/api/zoos/:id', async (req, res) => {
+  try {
+    const deleteZoo = await db('zoos')
+      .where({ id: req.params.id })
+      .del();
 
+    if(deleteZoo) {
+      res.status(204).end();
+    } else {
+      res.status(404).json({message: 'Zoo does not exist'});
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 
